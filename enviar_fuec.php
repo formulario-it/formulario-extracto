@@ -4,7 +4,7 @@ require 'fpdf.php';
 class PDF extends FPDF {
     function Header() {
         $this->SetFont('Arial','B',14);
-        $this->Cell(0,10,'FORMULARIO FUEC FUNCIONAL',0,1,'C');
+        $this->Cell(0,10,'FORMULARIO PDF FUEC FUNCIONAL',0,1,'C');
         $this->Ln(5);
     }
 
@@ -19,6 +19,7 @@ class PDF extends FPDF {
 
 $pdf = new PDF();
 $pdf->AddPage();
-$pdf->Field("Ejemplo", "PDF generado correctamente sin errores de fuentes.");
+$pdf->Field("Cliente", "Pedro Pérez");
+$pdf->Field("Mensaje", "PDF generado exitosamente.");
 $pdf->Output();
 ?>
