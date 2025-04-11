@@ -1,1 +1,0 @@
-<?php /* fpdi.php (versión ligera) */ ?>
