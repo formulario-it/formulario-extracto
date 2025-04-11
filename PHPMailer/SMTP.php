@@ -1,0 +1,1 @@
+<?php // SMTP.php dummy placeholder ?>
