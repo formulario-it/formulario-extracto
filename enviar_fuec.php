@@ -1,13 +1,9 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 require 'fpdf.php';
 require 'fpdi.php';
-require 'vendor/autoload.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pdf = new \setasign\Fpdi\Fpdi();
+    $pdf = new FPDI();
 
     $pdf->AddPage();
     $pdf->setSourceFile("pdf.pdf");
@@ -18,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetFontSize(10);
 
-    // Ejemplo de campos que podrías recibir
+    // Campos de ejemplo
     $nombre = $_POST['nombre'] ?? '';
     $cedula = $_POST['cedula'] ?? '';
     $destino = $_POST['destino'] ?? '';
@@ -35,29 +31,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $outputPath = "fuec_generado.pdf";
     $pdf->Output("F", $outputPath);
 
-    $mail = new PHPMailer(true);
+    // Envío por correo (modo simplificado)
+    $to = "extractofuec@gmail.com";
+    $subject = "Formulario FUEC enviado";
+    $message = "Adjunto el formulario FUEC.";
+    $headers = "From: no-reply@formulario-extracto
+";
 
-    try {
-        $mail->isSMTP();
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPAuth = true;
-        $mail->Username = "extractofuec@gmail.com"; // tu correo
-        $mail->Password = "TU_CLAVE_DE_APP";
-        $mail->SMTPSecure = "tls";
-        $mail->Port = 587;
-
-        $mail->setFrom("extractofuec@gmail.com", "FUEC App");
-        $mail->addAddress("extractofuec@gmail.com");
-        $mail->Subject = "Formulario FUEC enviado";
-        $mail->Body = "Adjunto el formulario rellenado en PDF.";
-        $mail->addAttachment($outputPath);
-
-        $mail->send();
-        echo "Correo enviado con éxito.";
-    } catch (Exception $e) {
-        echo "Error al enviar correo: {$mail->ErrorInfo}";
-    }
+    mail($to, $subject, $message, $headers);
+    echo "Formulario enviado con éxito.";
 } else {
-    echo "Acceso inválido.";
+    echo "Acceso no permitido.";
 }
 ?>
