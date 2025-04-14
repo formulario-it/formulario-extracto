@@ -13,6 +13,7 @@ require 'PHPMailer/src/Exception.php';
 // Generar PDF
 class PDF extends FPDF {
     function Header() {
+        \$this->Image('pdf.pdf', 0, 0, 210, 297); // Fondo PDF tamaño A4
         // Fondo visual
         $this->Image('pdf.pdf', 0, 0, 210, 297); // Tamaño A4
         $this->SetFont('Arial','B',14);
