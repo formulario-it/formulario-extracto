@@ -2,8 +2,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 require 'fpdf.php';
 require 'PHPMailer/src/PHPMailer.php';
@@ -13,11 +11,26 @@ require 'PHPMailer/src/Exception.php';
 // Generar PDF
 class PDF extends FPDF {
     function Header() {
+        \$this->Image('pdf.pdf', 0, 0, 210, 297); // Fondo PDF
+
         // Fondo visual
         $this->Image('pdf.pdf', 0, 0, 210, 297); // Tamaño A4
         $this->SetFont('Arial','B',14);
         $this->Cell(0,10,'FORMATO UNICO DE EXTRACTO DEL CONTRATO - FUEC',0,1,'C');
         $this->Ln(5);
+    function Section($title) {
+        \$this->SetFont('Arial','B',12);
+        \$this->SetFillColor(230,230,230);
+        \$this->Cell(0,10,\$title,0,1,'L', true);
+    }
+
+    function Field($label, $value) {
+        \$this->SetFont('Arial','B',10);
+        \$this->Cell(60,8,iconv('UTF-8','ISO-8859-1',\$label),1);
+        \$this->SetFont('Arial','',10);
+        \$this->Cell(130,8,iconv('UTF-8','ISO-8859-1',\$value),1);
+        \$this->Ln();
+    }
     }
 
     function Section($title) {
@@ -59,7 +72,7 @@ $pdf_filename = 'FUEC_' . date('Ymd_His') . '.pdf';
 $pdf->Output('F', $pdf_filename);
 
 // Enviar por correo
-$mail = new PHPMailer(true);
+$mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com'; // Cambia según el servidor
