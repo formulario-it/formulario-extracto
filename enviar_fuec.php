@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'fpdf.php';
+require 'fpdf/fpdf.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 require 'PHPMailer/src/Exception.php';
@@ -13,20 +13,15 @@ require 'PHPMailer/src/Exception.php';
 // Generar PDF
 class PDF extends FPDF {
     function Header() {
-        \$this->Image('pdf.pdf', 0, 0, 210, 297); // Fondo PDF tamaño A4
-        // Fondo visual
-        $this->Image('pdf.pdf', 0, 0, 210, 297); // Tamaño A4
         $this->SetFont('Arial','B',14);
         $this->Cell(0,10,'FORMATO UNICO DE EXTRACTO DEL CONTRATO - FUEC',0,1,'C');
         $this->Ln(5);
     }
-
     function Section($title) {
         $this->SetFont('Arial','B',12);
         $this->SetFillColor(230,230,230);
         $this->Cell(0,10,$title,0,1,'L', true);
     }
-
     function Field($label, $value) {
         $this->SetFont('Arial','B',10);
         $this->Cell(60,8,iconv('UTF-8','ISO-8859-1',$label),1);
@@ -44,45 +39,57 @@ $secciones = [
     "Vigencia del Contrato" => ['fecha_inicial','fecha_vencimiento'],
     "Características del Vehículo" => ['placa','modelo','marca','clase','num_interno','tarjeta_operacion'],
     "Datos del Conductor 1" => ['conductor1_nombre','conductor1_cedula','conductor1_licencia','conductor1_conduccion','conductor1_vigencia'],
-    "Datos del Conductor 2" => ['conductor2_nombre','conductor2_cedula','conductor2_licencia','conductor2_conduccion','conductor2_vigencia']
+    "Datos del Conductor 2" => ['conductor2_nombre','conductor2_cedula','conductor2_licencia','conductor2_conduccion','conductor2_vigencia'],
+    "Responsable del Contratante" => ['responsable_nombre','responsable_cedula','responsable_telefono','responsable_direccion']
 ];
 
 foreach ($secciones as $titulo => $campos) {
     $pdf->Section($titulo);
     foreach ($campos as $campo) {
-        $valor = $_POST[$campo] ?? '';
-        $pdf->Field(str_replace('_', ' ', strtoupper($campo)), $valor);
+        $pdf->Field(ucwords(str_replace("_", " ", $campo)), $_POST[$campo] ?? '');
     }
+    $pdf->Ln(2);
 }
 
-// Guardar el PDF
-$pdf_filename = 'FUEC_' . date('Ymd_His') . '.pdf';
-$pdf->Output('F', $pdf_filename);
+$pdf_path = __DIR__ . '/fuec_formulario.pdf';
+$pdf->Output($pdf_path, 'F');
 
-// Enviar por correo
+// Crear CSV
+$csv_path = __DIR__ . '/archivos/fuec_2025-04-10.csv';
+$fp = fopen($csv_path, 'w');
+fputcsv($fp, array_keys($_POST));
+fputcsv($fp, array_values($_POST));
+fclose($fp);
+
+// Enviar correo
 $mail = new PHPMailer(true);
 try {
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com'; // Cambia según el servidor
+    $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'tu_correo@gmail.com'; // <-- CAMBIA ESTO
-    $mail->Password = 'tu_contraseña_o_app_password'; // <-- CAMBIA ESTO
+    $mail->Username = 'extractofuec@gmail.com';
+    $mail->Password = 'xnpjdayahlvgaflq'; // REEMPLAZA
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    $mail->setFrom('tu_correo@gmail.com', 'Sistema FUEC');
-    $mail->addAddress('tu_correo@gmail.com'); // <-- CAMBIA ESTO TAMBIÉN
+    $mail->setFrom('extractofuec@gmail.com', 'Formulario FUEC');
+    $mail->addAddress('extractofuec@gmail.com');
 
-    $mail->isHTML(true);
-    $mail->Subject = 'FUEC Generado';
-    $mail->Body = 'Adjunto encontrarás el FUEC generado desde el formulario.';
+    $mail->Subject = 'Formulario FUEC recibido';
+    $mail->Body = 'Adjunto el PDF y CSV del formulario FUEC.';
 
-    $mail->addAttachment($pdf_filename);
+    $mail->addAttachment($pdf_path, 'fuec_formulario.pdf');
+    $mail->addAttachment($csv_path, 'fuec_2025-04-10.csv');
+
     $mail->send();
 
-    echo 'FUEC enviado correctamente por correo.';
-    unlink($pdf_filename); // Borrar archivo después de enviar
+    unlink($pdf_path); // Eliminar después del envío
+    // unlink($csv_path); // Si deseas borrar el CSV del servidor
+
+    header("Location: index.html");
+    exit();
+
 } catch (Exception $e) {
-    echo "Error al enviar el FUEC: {$mail->ErrorInfo}";
+    echo "❌ Error al enviar el correo: {\$mail->ErrorInfo}";
 }
 ?>
