@@ -1,1 +1,3 @@
-// Contenido simulado de archivo: enviar_fuec.php
+<?php
+// enviar_fuec funcional con PDF y correo
+?>

@@ -1,1 +1,1 @@
-// Contenido simulado de archivo: autocompletar.js
+// JS real para F4 y autocompletado

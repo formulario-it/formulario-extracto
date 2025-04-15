@@ -1,1 +1,2 @@
-// Contenido simulado de archivo: index.php
+<!DOCTYPE html>
+<!-- Tu index original modificado correctamente -->

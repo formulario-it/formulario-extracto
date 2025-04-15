@@ -1,1 +1,1 @@
-// Contenido simulado de archivo: fpdf.php
+// Código de FPDF

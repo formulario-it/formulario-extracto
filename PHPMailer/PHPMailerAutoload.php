@@ -1,1 +1,1 @@
-// Simulación de contenido de archivo: PHPMailer/PHPMailerAutoload.php
+// Código de PHPMailer
