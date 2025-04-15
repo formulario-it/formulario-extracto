@@ -1,0 +1,1 @@
+// Contenido simulado de archivo: buscador.js

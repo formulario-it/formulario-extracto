@@ -1,1 +1,1 @@
-// Simulación de contenido de archivo: fpdf/fpdf.php
+// Contenido simulado de archivo: fpdf.php

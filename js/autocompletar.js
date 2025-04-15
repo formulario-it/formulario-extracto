@@ -1,1 +1,1 @@
-// Simulación de contenido de archivo: js/autocompletar.js
+// Contenido simulado de archivo: autocompletar.js

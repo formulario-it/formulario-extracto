@@ -1,1 +1,1 @@
-// Simulación de contenido de archivo: index.php
+// Contenido simulado de archivo: index.php

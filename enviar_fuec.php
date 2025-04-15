@@ -1,1 +1,1 @@
-// Simulación de contenido de archivo: enviar_fuec.php
+// Contenido simulado de archivo: enviar_fuec.php
