@@ -1,0 +1,2 @@
+"StrIdCaja","StrDescripcion","IntActiva","IntEstado","IntActivaTope","IntValorTope","IntBase","IntVentas","IntRecaudos","IntRetiros","IntSaldo","DatFechaA","StrIdUsuarioA","DatFechaC","StrIdUsuarioC","IntEstado2","StrIdUsuarioO","Intturno","DatFechaO","IntPermiteCierreSaldo","IdSeguridad","IntTopeRetiro","StrPlacaCaja","StrUbicacionCaja","StrTipoCaja"
+"01",General,0,0,0,0,0.00000,0.00000,0.00000,0.00000,0.00000,,,,,,,0,,1,"90B84745-56C9-4852-BE73-7289E0B3184A",0,,,
