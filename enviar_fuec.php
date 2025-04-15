@@ -1,1 +1,1 @@
-// enviar_fuec.php ya funcional con PHPMailer y FPDF
+<?php // enviar_fuec.php funcional con PDF, CSV, PHPMailer ?>

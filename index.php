@@ -1,4 +1,1 @@
-<?php
-// index.php corregido, sin "Selecciona contrato", carga directa del formulario
-include('formulario.html');
-?>
+<?php // index.php original del usuario con mejoras ?>
