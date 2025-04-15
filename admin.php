@@ -1,0 +1,1 @@
+<?php // panel de administración ?>
