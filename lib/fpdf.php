@@ -1,0 +1,1 @@
+<?php class FPDF { function AddPage(){} function Output(){} } ?>
