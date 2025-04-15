@@ -1,0 +1,1 @@
+// Simulación de contenido de archivo: js/f4-handler.js

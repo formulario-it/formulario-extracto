@@ -1,1 +1,1 @@
-<?php // FPDF library ?>
+// Simulación de contenido de archivo: fpdf/fpdf.php
