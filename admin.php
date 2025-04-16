@@ -1,1 +1,1 @@
-Este sistema permite cargar datos desde CSV, generar FUEC en PDF y enviarlo por correo.
+<?php // panel de administración ?>
