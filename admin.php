@@ -1,1 +1,1 @@
-<?php // panel de administración ?>
+<?php echo 'Panel de administración'; ?>

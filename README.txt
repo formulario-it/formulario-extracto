@@ -1,1 +1,1 @@
-Instrucciones de uso del sistema FUEC.
+Instrucciones para desplegar el sistema FUEC
