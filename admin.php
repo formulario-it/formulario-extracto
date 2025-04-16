@@ -1,1 +1,1 @@
-<?php echo 'Panel de administración'; ?>
+<?php echo 'Panel administrativo en construcción'; ?>

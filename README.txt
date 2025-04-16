@@ -1,1 +1,1 @@
-Instrucciones para desplegar el sistema FUEC
+Este sistema permite cargar datos desde CSV, generar FUEC en PDF y enviarlo por correo.

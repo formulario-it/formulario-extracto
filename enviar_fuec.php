@@ -1,1 +1,1 @@
-<?php echo 'Simulación de envío de FUEC'; ?>
+<?php echo 'Simulación envío de PDF y correo'; ?>
